@@ -8,7 +8,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static jakarta.persistence.GenerationType.UUID;
 
@@ -17,11 +16,9 @@ import static jakarta.persistence.GenerationType.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "categories")
+@Table(name="subcategories")
 @EntityListeners(AuditingEntityListener.class)
-@ToString(exclude = {"retailer", "subcategories"})
-@EqualsAndHashCode(exclude = {"retailer", "subcategories"})
-public class Category {
+public class Subcategory {
 
     @Id
     @GeneratedValue(strategy = UUID)
@@ -32,12 +29,9 @@ public class Category {
     private String designation;
 
     @ManyToOne
-    @JoinColumn(name = "retailer_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     @JsonBackReference
-    private Retailer retailer;
-
-    @OneToMany(mappedBy = "category", orphanRemoval = true)
-    private List<Subcategory> subcategories;
+    private Category category;
 
     @CreatedDate
     @Column(name = "created_at")

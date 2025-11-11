@@ -11,9 +11,10 @@ import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.UUID;
 
-@Builder
 @Data
+@Builder
 @Entity
+@Table(name = "employees")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
