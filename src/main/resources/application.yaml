@@ -6,12 +6,12 @@ spring:
   application:
     name: retailer_service
   datasource:
-    url: jdbc:h2:mem:retailerService
-    driveClassName: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
+    url: jdbc:postgresql://localhost:5433/auth-db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
   jpa:
+    hibernate:
+      ddl-auto: update
     show-sql: true

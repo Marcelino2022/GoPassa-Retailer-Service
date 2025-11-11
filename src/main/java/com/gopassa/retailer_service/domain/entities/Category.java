@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -13,11 +16,13 @@ import static jakarta.persistence.GenerationType.UUID;
 
 @Builder
 @Data
-@Entity
-@Table(name = "sections")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Section {
+@Entity
+@Table(name = "categories")
+@EntityListeners(AuditingEntityListener.class)
+public class Category {
+
     @Id
     @GeneratedValue(strategy = UUID)
     @Column(length = 36)
@@ -31,10 +36,11 @@ public class Section {
     @JsonBackReference
     private Retailer retailer;
 
+    @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 }

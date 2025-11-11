@@ -74,4 +74,7 @@ public class Retailer {
 
     @OneToMany(mappedBy = "retailer", orphanRemoval = true)
     private List<Section> sections;
+
+    @OneToMany(mappedBy = "retailer", orphanRemoval = true)
+    private List<Category> categories;
 }
