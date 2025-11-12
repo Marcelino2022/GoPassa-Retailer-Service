@@ -5,36 +5,37 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static jakarta.persistence.GenerationType.UUID;
 
-@Data
 @Builder
+@Data
 @Entity
-@Table(name = "sections")
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "section_devices")
+@RequiredArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Section {
+@AllArgsConstructor
+public class SectionDevice {
     @Id
     @GeneratedValue(strategy = UUID)
-    @Column(length = 36)
+    @Column(unique = true, nullable = false, length = 36)
     private String id;
 
-    @Column(name = "designation", nullable = false, unique = true)
-    private String designation;
-
-    @ManyToOne
-    @JoinColumn(name = "retailer_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "section_id", nullable = false)
     @JsonBackReference
-    private Retailer retailer;
+    private Section section;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "device_id", unique = true, nullable = false)
+    @JsonBackReference
+    private Device device;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -43,11 +44,4 @@ public class Section {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SectionSubcategory> sectionSubcategories;
-
-    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SectionDevice> sectionDevices;
-
 }

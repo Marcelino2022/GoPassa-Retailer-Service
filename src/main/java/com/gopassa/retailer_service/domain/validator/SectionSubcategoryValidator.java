@@ -1,7 +1,5 @@
 package com.gopassa.retailer_service.domain.validator;
 
-import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateSectionSubcategoryDTO;
-import com.gopassa.retailer_service.application.dto.validateDTO.ValidateSectionSubcategoryDTO;
 import com.gopassa.retailer_service.domain.entities.SectionSubcategory;
 import com.gopassa.retailer_service.domain.exceptions.DuplicatedRecord;
 import com.gopassa.retailer_service.repository.SectionSubcategoryRepository;
