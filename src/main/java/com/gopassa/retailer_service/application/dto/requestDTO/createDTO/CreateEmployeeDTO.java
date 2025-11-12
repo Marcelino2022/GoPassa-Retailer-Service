@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Data
 public class CreateEmployeeDTO {
 
-    @NotNull
     @NotNull(message = "The first name must be filled.")
     @Size(min = 3, max = 50)
     private final String firstName;

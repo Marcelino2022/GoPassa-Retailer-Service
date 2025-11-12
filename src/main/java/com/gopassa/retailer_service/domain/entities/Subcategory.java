@@ -25,7 +25,7 @@ public class Subcategory {
     @Column(length = 36)
     private String id;
 
-    @Column(name = "designation", nullable = false, unique = true)
+    @Column(name = "designation", nullable = false, unique = true, length = 60)
     private String designation;
 
     @ManyToOne

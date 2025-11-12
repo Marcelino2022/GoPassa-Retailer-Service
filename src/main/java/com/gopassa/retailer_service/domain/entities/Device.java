@@ -2,42 +2,47 @@ package com.gopassa.retailer_service.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import static jakarta.persistence.GenerationType.UUID;
 
-@Data
 @Builder
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "categories")
+@Table(name = "gopassa_devices")
 @EntityListeners(AuditingEntityListener.class)
-@ToString(exclude = {"retailer", "subcategories"})
-@EqualsAndHashCode(exclude = {"retailer", "subcategories"})
-public class Category {
+public class Device {
 
     @Id
-    @GeneratedValue(strategy = UUID)
-    @Column(length = 36)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
     private String id;
 
-    @Column(name = "designation", nullable = false, unique = true, length = 60)
+    @Column(name = "designation", nullable = false, unique = true, length = 30)
     private String designation;
 
-    @ManyToOne
-    @JoinColumn(name = "retailer_id", nullable = false)
+    @Column(name = "type", length = 20)
+    private String type;
+
+    @Column(name = "status")
+    private Boolean status = true;
+
+    @Column(name = "iot_device_id", nullable = false, unique = true, length = 36)
+    private String iotDeviceId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "retailer_id")
     @JsonBackReference
     private Retailer retailer;
-
-    @OneToMany(mappedBy = "category", orphanRemoval = true)
-    private List<Subcategory> subcategories;
 
     @CreatedDate
     @Column(name = "created_at")
