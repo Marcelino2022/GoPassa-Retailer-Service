@@ -2,37 +2,40 @@ package com.gopassa.retailer_service.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static jakarta.persistence.GenerationType.UUID;
 
-@Data
 @Builder
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name="subcategories")
+@Table(name = "section_subcategories")
 @EntityListeners(AuditingEntityListener.class)
-public class Subcategory {
-
+public class SectionSubcategory {
     @Id
     @GeneratedValue(strategy = UUID)
-    @Column(length = 36)
+    @Column(unique = true, nullable = false, length = 36)
     private String id;
 
-    @Column(name = "designation", nullable = false, unique = true, length = 60)
-    private String designation;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "section_id", nullable = false)
     @JsonBackReference
-    private Category category;
+    private Section section;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subcategory_id", nullable = false)
+    @JsonBackReference
+    private Subcategory subcategory;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -41,7 +44,4 @@ public class Subcategory {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SectionSubcategory> sectionSubcategories;
 }

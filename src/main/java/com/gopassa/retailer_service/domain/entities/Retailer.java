@@ -71,12 +71,12 @@ public class Retailer {
     @OneToMany(mappedBy = "retailer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
 
-    @OneToMany(mappedBy = "retailer", orphanRemoval = true)
+    @OneToMany(mappedBy = "retailer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Section> sections;
 
-    @OneToMany(mappedBy = "retailer", orphanRemoval = true)
+    @OneToMany(mappedBy = "retailer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories;
 
-    @OneToMany(mappedBy = "retailer", orphanRemoval = true)
+    @OneToMany(mappedBy = "retailer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Device> gopassaDevices;
 }
