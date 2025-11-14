@@ -25,7 +25,7 @@ public class Retailer {
     @Column(length = 36)
     private String id;
 
-    @Column(name = "tenant_id", length = 36, unique = true)
+    @Column(name = "tenant_id", length = 36, nullable = false)
     private String tenantId;
 
     @Column(name = "name", length = 100)

@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class RetailerService {
 
 
     public Retailer findById(String id){
-        return retailerRepository.findById(id).orElse(null);
+        return retailerRepository.findById(id).orElseThrow( ()->
+                new InvalidParameterException("Retailer not found: " + id ));
     }
 
     @Transactional

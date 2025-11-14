@@ -46,14 +46,15 @@ public class CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
-
+    @Transactional
     public Category update(String id, UpdateCategoryDTO updateCategoryDTO) {
         Category category = findById(id);
         category.setDesignation(updateCategoryDTO.getDesignation());
         return category;
     }
 
-    public void deleteById(String id) {
+    @Transactional
+    public void delete(String id) {
         categoryRepository.deleteById(id);
     }
 

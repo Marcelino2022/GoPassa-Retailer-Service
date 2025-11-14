@@ -6,7 +6,7 @@ spring:
   application:
     name: retailer_service
   datasource:
-    url: jdbc:postgresql://localhost:5433/auth-db
+    url: jdbc:postgresql://localhost:5434/retailer_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
