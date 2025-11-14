@@ -33,7 +33,7 @@ public class ProductService {
         Subcategory subcategory = subcategoryService.findById(createProductDTO.getSubcategoryId());
 
         Product product = Product.builder()
-                .description(createProductDTO.getDescription())
+                .designation(createProductDTO.getDesignation())
                 .brand(createProductDTO.getBrand())
                 .weight(createProductDTO.getWeight())
                 .unitOfMeasure(createProductDTO.getUnitOfMeasure())
@@ -49,6 +49,7 @@ public class ProductService {
                 .discountRate(createProductDTO.getDiscountRate())
                 .discountCondition(convertToDiscountCondition(String.valueOf(createProductDTO.getDiscountCondition())))
                 .expiryDate(createProductDTO.getExpiryDate())
+                .description(createProductDTO.getDescription())
                 .retailer(retailer)
                 .subcategory(subcategory)
                 .build();
@@ -67,7 +68,7 @@ public class ProductService {
     public Product update(String id, UpdateProductDTO updateProductDTO) {
 
         Product product = findById(id);
-        product.setDescription(updateProductDTO.getDescription());
+        product.setDesignation(updateProductDTO.getDesignation());
         product.setBrand(updateProductDTO.getBrand());
         product.setWeight(updateProductDTO.getWeight());
         product.setUnitOfMeasure(updateProductDTO.getUnitOfMeasure());
@@ -80,6 +81,7 @@ public class ProductService {
         product.setMaxStockLevel(updateProductDTO.getMaxStockLevel());
         product.setActive(updateProductDTO.getActive());
         product.setTaxRate(updateProductDTO.getTaxRate());
+        product.setDescription(updateProductDTO.getDescription());
         product.setDiscountRate(updateProductDTO.getDiscountRate());
         product.setDiscountCondition(convertToDiscountCondition(String.valueOf(updateProductDTO.getDiscountCondition())));
         product.setExpiryDate(updateProductDTO.getExpiryDate());

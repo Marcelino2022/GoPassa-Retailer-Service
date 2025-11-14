@@ -79,4 +79,7 @@ public class Retailer {
 
     @OneToMany(mappedBy = "retailer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Device> gopassaDevices;
+
+    @OneToMany(mappedBy = "retailer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
 }

@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -28,7 +29,7 @@ public class Product {
     private String id;
 
     @Column(name = "designation", nullable = false, length = 150)
-    private String description;
+    private String designation;
 
     @Column(name = "brand", length = 80)
     private String brand;
@@ -84,6 +85,9 @@ public class Product {
     @JoinColumn(name = "subcategory_id", nullable = false)
     private Subcategory subcategory;
 
+    @Column(name = "description", length = 300)
+    private String description;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -91,5 +95,8 @@ public class Product {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> productImage;
 
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class ProductDTO {
     private final String id;
-    private final String description;
+    private final String designation;
     private final String brand;
     private final BigDecimal weight;
     private final String unitOfMeasure;
@@ -30,6 +30,7 @@ public class ProductDTO {
     private final BigDecimal discountRate;
     private final DiscountCondition discountCondition;
     private final LocalDate expiryDate;
+    private final String description;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
     private final RetailerRefDTO retailer;
@@ -38,7 +39,7 @@ public class ProductDTO {
     public static ProductDTO create(Product product) {
         return new ProductDTO(
                 product.getId(),
-                product.getDescription(),
+                product.getDesignation(),
                 product.getBrand(),
                 product.getWeight(),
                 product.getUnitOfMeasure(),
@@ -54,6 +55,7 @@ public class ProductDTO {
                 product.getDiscountRate(),
                 product.getDiscountCondition(),
                 product.getExpiryDate(),
+                product.getDescription(),
                 product.getCreatedAt(),
                 product.getUpdatedAt(),
                 RetailerRefDTO.create(product.getRetailer()),

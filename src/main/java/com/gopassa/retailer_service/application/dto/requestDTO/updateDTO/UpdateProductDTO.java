@@ -14,7 +14,7 @@ public class UpdateProductDTO {
     @NotBlank(message = "The designation must be filled")
     @NotNull(message = "The designation must be filled")
     @Size(min= 2, max = 150)
-    private final String description;
+    private final String designation;
     private final String brand;
     private final BigDecimal weight;
     private final String unitOfMeasure;
@@ -34,6 +34,9 @@ public class UpdateProductDTO {
     private final BigDecimal discountRate;
     private final String discountCondition;
     private final LocalDate expiryDate;
+
+    @Size(max = 300)
+    private final String description;
 
     @NotBlank(message = "The subcategory must be indicated")
     @NotNull(message = "The subcategory must be filled")
