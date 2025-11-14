@@ -5,6 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateS
 import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateSectionSubcategoryDTO;
 import com.gopassa.retailer_service.application.services.SectionSubcategoryService;
 import com.gopassa.retailer_service.domain.entities.SectionSubcategory;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class SectionSubcategoryController {
 
 
     @PostMapping
-    public ResponseEntity<SectionSubcategoryDTO> create(@RequestBody CreateSectionSubcategoryDTO  createSectionSubcategoryDTO) {
+    public ResponseEntity<SectionSubcategoryDTO> create(@RequestBody @Valid CreateSectionSubcategoryDTO  createSectionSubcategoryDTO) {
         SectionSubcategory sectionSubcategory = sectionSubcategoryService.create(createSectionSubcategoryDTO);
         return ResponseEntity.created(URI.create("subsection-subcategories/" + sectionSubcategory.getId()))
                 .body(SectionSubcategoryDTO.create(sectionSubcategory));
@@ -40,14 +41,14 @@ public class SectionSubcategoryController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<SectionSubcategoryDTO> findById(@PathVariable String id) {
+    public ResponseEntity<SectionSubcategoryDTO> findById(@PathVariable @Valid String id) {
         SectionSubcategory sectionSubcategory = sectionSubcategoryService.findById(id);
         return ResponseEntity.ok(SectionSubcategoryDTO.create(sectionSubcategory));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<SectionSubcategoryDTO> update(@PathVariable String id,
-                                                        @RequestBody UpdateSectionSubcategoryDTO updateSectionSubcategoryDTO) {
+    public ResponseEntity<SectionSubcategoryDTO> update(@PathVariable @Valid String id,
+                                                        @RequestBody @Valid UpdateSectionSubcategoryDTO updateSectionSubcategoryDTO) {
 
         SectionSubcategory sectionSubcategory = sectionSubcategoryService.update(id, updateSectionSubcategoryDTO);
         return ResponseEntity.ok(SectionSubcategoryDTO.create(sectionSubcategory));
@@ -55,7 +56,7 @@ public class SectionSubcategoryController {
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable @Valid String id) {
         sectionSubcategoryService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -6,6 +6,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateE
 import com.gopassa.retailer_service.application.services.EmployeeService;
 import com.gopassa.retailer_service.domain.entities.Employee;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDTO> create(@RequestBody CreateEmployeeDTO createEmployeeDTO){
+    public ResponseEntity<EmployeeDTO> create(@RequestBody @Valid CreateEmployeeDTO createEmployeeDTO){
         Employee employee = employeeService.create(createEmployeeDTO);
         return ResponseEntity.created(URI.create("employees/"+employee.getId()))
                 .body(EmployeeDTO.create(employee));
@@ -40,20 +41,21 @@ public class EmployeeController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<EmployeeDTO> findById(@PathVariable String id){
+    public ResponseEntity<EmployeeDTO> findById(@PathVariable @Valid String id){
         Employee employee = employeeService.findById(id);
         return  ResponseEntity.ok(EmployeeDTO.create(employee));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<EmployeeDTO> update(@PathVariable String id, @RequestBody UpdateEmployeeDTO updateEmployeeDTO){
+    public ResponseEntity<EmployeeDTO> update(@PathVariable @Valid String id,
+                                              @RequestBody @Valid UpdateEmployeeDTO updateEmployeeDTO){
         Employee employee = employeeService.update(id,updateEmployeeDTO);
         return ResponseEntity.ok(EmployeeDTO.create(employee));
     }
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable String id){
+    public ResponseEntity<Void> deleteById(@PathVariable @Valid String id){
         employeeService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

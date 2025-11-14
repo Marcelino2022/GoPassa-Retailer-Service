@@ -5,6 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateS
 import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateSaleDTO;
 import com.gopassa.retailer_service.application.services.SaleService;
 import com.gopassa.retailer_service.domain.entities.Sale;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class SaleController {
 
 
     @PostMapping
-    public ResponseEntity<SaleDTO> create(@RequestBody CreateSaleDTO createSaleDTO) {
+    public ResponseEntity<SaleDTO> create(@RequestBody @Valid CreateSaleDTO createSaleDTO) {
         Sale sale = saleService.create(createSaleDTO);
         return ResponseEntity.created(URI.create("/sales/" + sale.getId()))
                 .body(SaleDTO.create(sale));
@@ -40,19 +41,19 @@ public class SaleController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<SaleDTO> findById(@PathVariable String id) {
+    public ResponseEntity<SaleDTO> findById(@PathVariable @Valid String id) {
         Sale sale = saleService.findById(id);
         return ResponseEntity.ok(SaleDTO.create(sale));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<SaleDTO> update(@PathVariable String id, @RequestBody UpdateSaleDTO updateSaleDTO) {
+    public ResponseEntity<SaleDTO> update(@PathVariable @Valid String id, @RequestBody @Valid UpdateSaleDTO updateSaleDTO) {
         Sale sale = saleService.update(id,updateSaleDTO);
         return ResponseEntity.ok(SaleDTO.create(sale));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable String id) {
+    public ResponseEntity<Void> deleteById(@PathVariable @Valid String id) {
         saleService.delete(id);
         return ResponseEntity.noContent().build();
     }

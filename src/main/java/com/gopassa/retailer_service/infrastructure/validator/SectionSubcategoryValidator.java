@@ -1,4 +1,4 @@
-package com.gopassa.retailer_service.domain.validator;
+package com.gopassa.retailer_service.infrastructure.validator;
 
 import com.gopassa.retailer_service.domain.entities.SectionSubcategory;
 import com.gopassa.retailer_service.domain.exceptions.DuplicatedRecord;

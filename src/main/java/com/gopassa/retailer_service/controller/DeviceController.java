@@ -5,6 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateD
 import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateDeviceDTO;
 import com.gopassa.retailer_service.application.services.DeviceService;
 import com.gopassa.retailer_service.domain.entities.Device;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,26 +32,26 @@ public class DeviceController {
     }
 
     @PostMapping
-    public ResponseEntity<DeviceDTO> create(@RequestBody CreateDeviceDTO createDeviceDTO) {
+    public ResponseEntity<DeviceDTO> create(@RequestBody @Valid CreateDeviceDTO createDeviceDTO) {
         Device device = deviceService.create(createDeviceDTO);
         return ResponseEntity.created(URI.create("/devices/" + device.getId()))
                 .body(DeviceDTO.create(device));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<DeviceDTO> findById(@PathVariable String id) {
+    public ResponseEntity<DeviceDTO> findById(@PathVariable @Valid String id) {
         Device device = deviceService.findById(id);
         return ResponseEntity.ok(DeviceDTO.create(device));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<DeviceDTO> update(@PathVariable String id, @RequestBody UpdateDeviceDTO updateDeviceDTO) {
+    public ResponseEntity<DeviceDTO> update(@PathVariable @Valid String id, @RequestBody @Valid UpdateDeviceDTO updateDeviceDTO) {
         Device device = deviceService.update(id, updateDeviceDTO);
         return ResponseEntity.ok(DeviceDTO.create(device));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<DeviceDTO> delete(@PathVariable String id) {
+    public ResponseEntity<DeviceDTO> delete(@PathVariable @Valid String id) {
         deviceService.delete(id);
         return ResponseEntity.noContent().build();
     }

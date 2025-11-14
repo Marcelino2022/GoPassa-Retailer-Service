@@ -1,5 +1,7 @@
 package com.gopassa.retailer_service.application.dto.requestDTO.createDTO;
 
+import com.gopassa.retailer_service.domain.entities.Employee;
+import com.gopassa.retailer_service.infrastructure.validator.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,7 +29,14 @@ public class CreateProductDTO {
 
     private final int quantity;
     private final String barcode;
+
+    @UniqueValue(
+        entity = Employee.class,
+        fieldName = "userId",
+        message = "The SKU is already being used."
+    )
     private final String sku;
+
     private final int minStockLevel;
     private final int maxStockLevel;
     private final Boolean active;

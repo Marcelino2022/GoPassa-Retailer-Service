@@ -5,6 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateS
 import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateSubcategoyDTO;
 import com.gopassa.retailer_service.application.services.SubcategoryService;
 import com.gopassa.retailer_service.domain.entities.Subcategory;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,26 +33,27 @@ public class SubcategoryController {
 
 
     @PostMapping
-    public ResponseEntity<SubcategoryDTO> create(@RequestBody CreateSubcategoryDTO createSubcategoryDTO) {
+    public ResponseEntity<SubcategoryDTO> create(@RequestBody @Valid CreateSubcategoryDTO createSubcategoryDTO) {
         Subcategory subcategory = subcategoryService.create(createSubcategoryDTO);
         return ResponseEntity.created(URI.create("/subcategories/" + subcategory.getId()))
                 .body(SubcategoryDTO.create(subcategory));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<SubcategoryDTO> findById(@PathVariable String id) {
+    public ResponseEntity<SubcategoryDTO> findById(@PathVariable @Valid String id) {
         Subcategory subcategory = subcategoryService.findById(id);
         return ResponseEntity.ok(SubcategoryDTO.create(subcategory));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<SubcategoryDTO> update(@PathVariable String id, @RequestBody UpdateSubcategoyDTO updateSubcategoyDTO) {
+    public ResponseEntity<SubcategoryDTO> update(@PathVariable @Valid String id,
+                                                 @RequestBody @Valid UpdateSubcategoyDTO updateSubcategoyDTO) {
         Subcategory subcategory = subcategoryService.update(id, updateSubcategoyDTO);
         return ResponseEntity.ok(SubcategoryDTO.create(subcategory));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable @Valid String id) {
         subcategoryService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -11,6 +11,7 @@ public class CreateCategoryDTO {
 
     @NotNull
     @Size(min = 1, max = 30)
+
     private final String designation;
 
     @NotNull

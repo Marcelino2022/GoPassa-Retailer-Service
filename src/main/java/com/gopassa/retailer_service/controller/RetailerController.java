@@ -5,6 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateR
 import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateRetailerDTO;
 import com.gopassa.retailer_service.application.services.RetailerService;
 import com.gopassa.retailer_service.domain.entities.Retailer;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,26 +31,26 @@ public class RetailerController {
     }
 
     @PostMapping
-    public ResponseEntity<RetailerDTO> create(@RequestBody CreateRetailerDTO createRetailerDTO) {
+    public ResponseEntity<RetailerDTO> create(@RequestBody @Valid CreateRetailerDTO createRetailerDTO) {
         Retailer retailer =  retailerService.create(createRetailerDTO);
         return ResponseEntity.created(URI.create("retailers/" + retailer.getId()))
                 .body(RetailerDTO.create(retailer));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<RetailerDTO> findById(@PathVariable String id){
+    public ResponseEntity<RetailerDTO> findById(@PathVariable @Valid String id){
         Retailer retailer = retailerService.findById(id);
         return  ResponseEntity.ok(RetailerDTO.create(retailer));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<RetailerDTO> update(@PathVariable String id, @RequestBody UpdateRetailerDTO updateRetailerDTO) {
+    public ResponseEntity<RetailerDTO> update(@PathVariable @Valid String id, @RequestBody @Valid UpdateRetailerDTO updateRetailerDTO) {
         Retailer retailer = retailerService.update(id,updateRetailerDTO);
         return  ResponseEntity.ok(RetailerDTO.create(retailer));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id){
+    public ResponseEntity<Void> delete(@PathVariable @Valid String id){
         retailerService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -28,7 +28,7 @@ public class Section {
     @Column(length = 36)
     private String id;
 
-    @Column(name = "designation", nullable = false, unique = true)
+    @Column(name = "designation", nullable = false)
     private String designation;
 
     @ManyToOne

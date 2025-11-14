@@ -1,5 +1,8 @@
 package com.gopassa.retailer_service.application.dto.requestDTO.createDTO;
 
+import com.gopassa.retailer_service.domain.entities.Employee;
+import com.gopassa.retailer_service.domain.entities.Retailer;
+import com.gopassa.retailer_service.infrastructure.validator.UniqueValue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -21,16 +24,36 @@ public class CreateRetailerDTO {
     private final String acronym;
 
     @NotNull(message = "The email must be filled.")
+    @UniqueValue(
+        entity = Retailer.class,
+        fieldName = "email",
+        message = "The email is already being used."
+    )
     private final String email;
 
     @NotNull(message = "The mobile number must be filled.")
     @Size(min = 9, max = 20)
+    @UniqueValue(
+            entity = Retailer.class,
+            fieldName = "mobileNumber",
+            message = "The mobile number is already being used."
+    )
     private final String mobileNumber;
 
     @Size(max = 20)
+    @UniqueValue(
+        entity = Retailer.class,
+        fieldName = "phoneNumber",
+        message = "The mobile number is already being used."
+    )
     private final String phoneNumber;
 
     @Size(max = 9)
+    @UniqueValue(
+        entity = Retailer.class,
+        fieldName = "nif",
+        message = "The mobile number is already being used."
+    )
     private final String nif;
 
     @NotNull(message = "The address must be filled")

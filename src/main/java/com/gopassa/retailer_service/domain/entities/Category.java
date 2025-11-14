@@ -28,7 +28,7 @@ public class Category {
     @Column(length = 36)
     private String id;
 
-    @Column(name = "designation", nullable = false, unique = true, length = 60)
+    @Column(name = "designation", nullable = false, length = 60)
     private String designation;
 
     @ManyToOne

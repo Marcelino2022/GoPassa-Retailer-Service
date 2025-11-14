@@ -4,6 +4,7 @@ import com.gopassa.retailer_service.application.dto.domainDTO.ProductImageDTO;
 import com.gopassa.retailer_service.application.dto.requestDTO.SaveProductImageDTO;
 import com.gopassa.retailer_service.application.services.ProductImageService;
 import com.gopassa.retailer_service.domain.entities.ProductImage;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class ProductImageController {
 
 
     @PostMapping
-    public ResponseEntity<ProductImageDTO> create(@RequestBody SaveProductImageDTO  saveProductImageDTO){
+    public ResponseEntity<ProductImageDTO> create(@RequestBody @Valid SaveProductImageDTO  saveProductImageDTO){
         ProductImage productImage = productImageService.create(saveProductImageDTO);
         return ResponseEntity.created(URI.create("/product-images" + productImage.getId()))
                 .body(ProductImageDTO.create(productImage));
@@ -40,21 +41,22 @@ public class ProductImageController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductImageDTO> findById(@PathVariable String id){
+    public ResponseEntity<ProductImageDTO> findById(@PathVariable @Valid String id){
         ProductImage productImage = productImageService.findById(id);
         return ResponseEntity.ok(ProductImageDTO.create(productImage));
     }
 
 
     @PutMapping("{id}")
-    public ResponseEntity<ProductImageDTO> update(@PathVariable String id, @RequestBody SaveProductImageDTO saveProductImageDTO){
+    public ResponseEntity<ProductImageDTO> update(@PathVariable @Valid String id,
+                                                  @RequestBody @Valid SaveProductImageDTO saveProductImageDTO){
         ProductImage productImage = productImageService.update(id, saveProductImageDTO);
         return ResponseEntity.ok(ProductImageDTO.create(productImage));
     }
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ProductImageDTO> delete(@PathVariable String id){
+    public ResponseEntity<ProductImageDTO> delete(@PathVariable @Valid String id){
         productImageService.delete(id);
         return ResponseEntity.noContent().build();
     }

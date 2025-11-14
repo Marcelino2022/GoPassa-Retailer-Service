@@ -4,6 +4,7 @@ import com.gopassa.retailer_service.application.dto.domainDTO.SectionDeviceDTO;
 import com.gopassa.retailer_service.application.dto.requestDTO.SaveSectionDeviceDTO;
 import com.gopassa.retailer_service.application.services.SectionDeviceService;
 import com.gopassa.retailer_service.domain.entities.SectionDevice;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class SectionDeviceController {
 
 
     @PostMapping
-    public ResponseEntity<SectionDeviceDTO> create(@RequestBody SaveSectionDeviceDTO saveSectionDeviceDTO) {
+    public ResponseEntity<SectionDeviceDTO> create(@RequestBody @Valid SaveSectionDeviceDTO saveSectionDeviceDTO) {
         SectionDevice sectionDevice = sectionDeviceService.create(saveSectionDeviceDTO);
         return ResponseEntity.created(URI.create("section-devices/" + sectionDevice.getId()))
                 .body(SectionDeviceDTO.create(sectionDevice));
@@ -41,21 +42,21 @@ public class SectionDeviceController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<SectionDeviceDTO> findById(@PathVariable String id) {
+    public ResponseEntity<SectionDeviceDTO> findById(@PathVariable @Valid String id) {
         SectionDevice sectionDevice = sectionDeviceService.findById(id);
         return ResponseEntity.ok(SectionDeviceDTO.create(sectionDevice));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<SectionDeviceDTO> update(@PathVariable String id,
-                                                   @RequestBody SaveSectionDeviceDTO saveSectionDeviceDTO) {
+    public ResponseEntity<SectionDeviceDTO> update(@PathVariable @Valid String id,
+                                                   @RequestBody @Valid SaveSectionDeviceDTO saveSectionDeviceDTO) {
         SectionDevice sectionDevice = sectionDeviceService.update(id, saveSectionDeviceDTO);
         return ResponseEntity.ok(SectionDeviceDTO.create(sectionDevice));
     }
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable @Valid String id) {
         sectionDeviceService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -5,7 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateS
 import com.gopassa.retailer_service.domain.entities.Section;
 import com.gopassa.retailer_service.domain.entities.SectionSubcategory;
 import com.gopassa.retailer_service.domain.entities.Subcategory;
-import com.gopassa.retailer_service.domain.validator.SectionSubcategoryValidator;
+import com.gopassa.retailer_service.infrastructure.validator.SectionSubcategoryValidator;
 import com.gopassa.retailer_service.repository.SectionSubcategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

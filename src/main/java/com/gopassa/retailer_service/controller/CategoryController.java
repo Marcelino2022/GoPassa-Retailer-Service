@@ -5,6 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateC
 import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateCategoryDTO;
 import com.gopassa.retailer_service.application.services.CategoryService;
 import com.gopassa.retailer_service.domain.entities.Category;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class CategoryController {
 
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> create(@RequestBody CreateCategoryDTO  createCategoryDTO) {
+    public ResponseEntity<CategoryDTO> create(@RequestBody @Valid CreateCategoryDTO  createCategoryDTO) {
 
         Category category = categoryService.create(createCategoryDTO);
         return ResponseEntity.created(URI.create("/categories/" + category.getId()))
@@ -41,19 +42,19 @@ public class CategoryController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable String id) {
+    public ResponseEntity<CategoryDTO> findById(@PathVariable @Valid String id) {
         Category category = categoryService.findById(id);
         return ResponseEntity.ok().body(CategoryDTO.create(category));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<CategoryDTO> update(@PathVariable("id") String id,  @RequestBody UpdateCategoryDTO updateCategoryDTO) {
+    public ResponseEntity<CategoryDTO> update(@PathVariable("id") @Valid String id,  @RequestBody @Valid UpdateCategoryDTO updateCategoryDTO) {
         Category category = categoryService.update(id, updateCategoryDTO);
         return ResponseEntity.ok().body(CategoryDTO.create(category));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<CategoryDTO> delete(@PathVariable String id) {
+    public ResponseEntity<CategoryDTO> delete(@PathVariable @Valid String id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }

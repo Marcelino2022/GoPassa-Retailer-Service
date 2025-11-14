@@ -5,6 +5,7 @@ import com.gopassa.retailer_service.application.dto.requestDTO.createDTO.CreateP
 import com.gopassa.retailer_service.application.dto.requestDTO.updateDTO.UpdateProductDTO;
 import com.gopassa.retailer_service.application.services.ProductService;
 import com.gopassa.retailer_service.domain.entities.Product;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity<ProductDTO> create(@RequestBody CreateProductDTO createProductDTO) {
+    public ResponseEntity<ProductDTO> create(@RequestBody @Valid CreateProductDTO createProductDTO) {
 
         Product product = productService.create(createProductDTO);
         return ResponseEntity.created(URI.create("/products"  + product.getId()))
@@ -42,21 +43,21 @@ public class ProductController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductDTO> getById(@PathVariable String id) {
+    public ResponseEntity<ProductDTO> getById(@PathVariable @Valid String id) {
         Product product = productService.findById(id);
         return ResponseEntity.ok(ProductDTO.create(product));
     }
 
 
     @PutMapping("{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable String id, @RequestBody UpdateProductDTO updateProductDTO) {
+    public ResponseEntity<ProductDTO> update(@PathVariable @Valid String id, @RequestBody @Valid UpdateProductDTO updateProductDTO) {
         Product product = productService.update(id, updateProductDTO);
         return ResponseEntity.ok(ProductDTO.create(product));
     }
 
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ProductDTO> delete(@PathVariable String id) {
+    public ResponseEntity<ProductDTO> delete(@PathVariable @Valid String id) {
         productService.delete(id);
         return ResponseEntity.noContent().build();
     }

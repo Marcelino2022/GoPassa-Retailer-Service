@@ -3,6 +3,8 @@ server:
     context-path: /
   port: 8000
 spring:
+  jackson:
+    default-property-inclusion: non_null
   application:
     name: retailer_service
   datasource:
@@ -15,3 +17,4 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: true
